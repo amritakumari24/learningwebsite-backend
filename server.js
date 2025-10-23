@@ -20,6 +20,10 @@ if (process.env.NODE_ENV !== 'production') {
     console.log(`🚀 LearnSphere API running locally on http://localhost:${PORT}`);
   });
 }
+app.get('/', (req, res) => {
+  res.send('Backend API is running!');
+});
+
 
 // Export the serverless handler for Vercel
 export const handler = serverless(app);
