@@ -1,7 +1,7 @@
 import dotenv from 'dotenv';
 import mongoose from 'mongoose';
-import app from './app.js';
 import serverless from 'serverless-http';
+import app from './app.js'; // your Express app
 
 dotenv.config();
 
@@ -13,7 +13,7 @@ mongoose
   .then(() => console.log('✅ MongoDB connected'))
   .catch((err) => console.error('❌ MongoDB connection error:', err));
 
-// Local development (only runs when not on Vercel)
+// Only start local server if NOT running on Vercel
 if (process.env.NODE_ENV !== 'production') {
   const PORT = process.env.PORT || 4000;
   app.listen(PORT, () => {
@@ -21,5 +21,5 @@ if (process.env.NODE_ENV !== 'production') {
   });
 }
 
-// Export for Vercel (serverless)
-export default serverless(app);
+// Export the serverless handler for Vercel
+export const handler = serverless(app);
